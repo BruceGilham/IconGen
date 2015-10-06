@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("IconGen")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("BDG Software, Inc.")]
 [assembly: AssemblyProduct("IconGen")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
