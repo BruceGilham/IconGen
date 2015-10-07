@@ -64,9 +64,9 @@ namespace IconGen
             }
 
             //Run the code in a thread and update the status string
+            output.Clear();
             var t = new Task(() =>
             {
-                //Open the file
                 SaveImage(sourceFile, outputLocation, 180, output: output);
                 SaveImage(sourceFile, outputLocation, 76, output: output);
                 SaveImage(sourceFile, outputLocation, 152, output: output);
@@ -108,10 +108,11 @@ namespace IconGen
                 var flieExt = Path.GetExtension(sourceFile);
                 var size = new System.Drawing.Size(newWidth, newHeight);
                 string newFileName;
+
                 if (newHeight == 0)
-                    newFileName = "icon-" + newWidth + "x" + newWidth;
-                else
-                    newFileName = "icon-" + newWidth + "x" + newHeight;
+                    newHeight = newWidth;
+
+                newFileName = "icon-" + newWidth + "x" + newHeight;
 
                 using (var inStream = new MemoryStream(imageBytes))
                 {
@@ -125,7 +126,11 @@ namespace IconGen
                         {
                             ISupportedImageFormat format = new PngFormat();
                             // Load, resize, set the format and quality and save an image.
-                            imageFactory.Load(inStream).Resize(size).Format(format).Save(outStream);
+                            imageFactory.Load(inStream)
+                                        .Resize(size)
+                                        .Format(format)
+                                        .Save(outStream);
+
                             Application.Current.Dispatcher.Invoke(() => output?.Insert(0, DateTime.Now + ": " + outputFileName + " Saved"));
                         }
                         // Do something with the stream.
@@ -134,7 +139,7 @@ namespace IconGen
             }
             catch (Exception e)
             {
-                throw;
+                Application.Current.Dispatcher.Invoke(() => MessageBox.Show(e.Message));
             }
         }
     }

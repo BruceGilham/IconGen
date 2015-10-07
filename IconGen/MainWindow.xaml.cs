@@ -46,7 +46,7 @@ namespace IconGen
         private void OutputLocationOnClick(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
-            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            var result = dialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 OutputLocation = dialog.SelectedPath;
